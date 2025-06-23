@@ -101,6 +101,7 @@ properties.splice(index, 1)
     await delay(300)
     const propertyIds = ids.map(id => parseInt(id, 10))
     const matchedProperties = properties.filter(p => propertyIds.includes(p.Id))
-    return matchedProperties.map(p => ({ ...p }))
-  }
 }
+};
+
+export default propertyService;
