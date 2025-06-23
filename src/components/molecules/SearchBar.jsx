@@ -24,19 +24,18 @@ const SearchBar = ({ onSearch, placeholder = "Search by city, address, or neighb
       onSubmit={handleSubmit}
       className="relative"
     >
-      <div className="relative">
+<div className="relative">
         <ApperIcon 
           name="Search" 
-          className="absolute left-3 top-1/2 transform -translate-y-1/2 text-surface-400 w-5 h-5" 
+          className="absolute left-3 top-1/2 transform -translate-y-1/2 text-surface-400 w-5 h-5 z-10" 
         />
-        <input
+        <Input
           type="text"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           placeholder={placeholder}
-          className="w-full pl-12 pr-20 py-3 border border-surface-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
+          className="pl-12 pr-20"
         />
-        
         {searchTerm && (
           <button
             type="button"
