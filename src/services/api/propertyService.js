@@ -25,19 +25,19 @@ const propertyService = {
     return [...featured]
   },
 
-  async search(filters) {
+async search(filters) {
     await delay(400)
     let filtered = [...properties]
 
     if (filters.location) {
-      const location = filters.location.toLowerCase()
+      const location = filters.location.toLowerCase().trim()
       filtered = filtered.filter(p => 
+        p.title.toLowerCase().includes(location) ||
         p.address.toLowerCase().includes(location) ||
         p.city.toLowerCase().includes(location) ||
         p.state.toLowerCase().includes(location)
       )
     }
-
     if (filters.priceMin) {
       filtered = filtered.filter(p => p.price >= filters.priceMin)
     }

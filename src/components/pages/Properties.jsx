@@ -55,10 +55,10 @@ useEffect(() => {
   }, [searchTerm, filters])
 
 const handleSearch = (term) => {
-    setSearchTerm(term)
-    setFilters(prev => ({ ...prev, location: term }))
+    const trimmedTerm = term.trim()
+    setSearchTerm(trimmedTerm)
+    setFilters(prev => ({ ...prev, location: trimmedTerm }))
   }
-
   const handleFilterChange = (newFilters) => {
     setFilters(newFilters)
   }
