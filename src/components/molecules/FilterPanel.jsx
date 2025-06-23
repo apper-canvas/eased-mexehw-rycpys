@@ -68,60 +68,72 @@ const FilterPanel = ({ isOpen, onClose, onFilterChange, currentFilters = {} }) =
     return count
   }
 
-  return (
+return (
     <AnimatePresence>
       {isOpen && (
         <>
-          {/* Backdrop */}
+          {/* Enhanced Backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+            className="fixed inset-0 bg-gradient-to-br from-black/60 to-black/40 backdrop-blur-sm z-40 lg:hidden"
           />
 
-          {/* Filter Panel */}
+          {/* Modern Filter Panel */}
           <motion.div
-            initial={{ x: -300, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            exit={{ x: -300, opacity: 0 }}
-            className="fixed top-0 left-0 h-full w-80 bg-white shadow-xl z-50 lg:relative lg:w-full lg:h-auto lg:shadow-none lg:bg-transparent"
+            initial={{ x: -350, opacity: 0, scale: 0.95 }}
+            animate={{ x: 0, opacity: 1, scale: 1 }}
+            exit={{ x: -350, opacity: 0, scale: 0.95 }}
+            transition={{ type: "spring", damping: 25, stiffness: 200 }}
+            className="fixed top-0 left-0 h-full w-80 glass-panel shadow-2xl z-50 lg:relative lg:w-full lg:h-auto lg:shadow-lg lg:rounded-2xl lg:border lg:border-surface-200/50"
           >
-            <div className="p-6 h-full overflow-y-auto custom-scrollbar">
-              {/* Header */}
-              <div className="flex items-center justify-between mb-6 lg:hidden">
-                <h2 className="text-lg font-semibold text-surface-900">Filters</h2>
+            <div className="p-6 h-full overflow-y-auto custom-scrollbar filter-panel-enter">
+{/* Modern Header */}
+              <div className="flex items-center justify-between mb-8 lg:hidden">
+                <div className="flex items-center space-x-3">
+                  <div className="w-8 h-8 bg-gradient-primary rounded-full flex items-center justify-center">
+                    <ApperIcon name="Filter" className="w-4 h-4 text-white" />
+                  </div>
+                  <h2 className="text-xl font-bold bg-gradient-primary bg-clip-text text-transparent">Filters</h2>
+                </div>
                 <button
                   onClick={onClose}
-                  className="p-2 hover:bg-surface-100 rounded-lg transition-colors"
+                  className="p-2 hover:bg-surface-100/80 rounded-xl transition-all duration-200 modern-button"
                 >
-                  <ApperIcon name="X" className="w-5 h-5" />
+                  <ApperIcon name="X" className="w-5 h-5 text-surface-600" />
                 </button>
               </div>
 
-              <div className="space-y-6">
-                {/* Price Range */}
-                <div>
-                  <h3 className="font-medium text-surface-900 mb-3">Price Range</h3>
+              <div className="space-y-8">
+{/* Modern Price Range */}
+                <div className="filter-item-enter bg-gradient-to-r from-surface-50/50 to-surface-100/50 p-5 rounded-2xl border border-surface-200/50">
+                  <div className="flex items-center space-x-2 mb-4">
+                    <ApperIcon name="DollarSign" className="w-4 h-4 text-primary" />
+                    <h3 className="font-semibold text-surface-900">Price Range</h3>
+                  </div>
                   <PriceSlider
                     value={[filters.priceMin, filters.priceMax]}
                     onChange={handlePriceChange}
                   />
                 </div>
 
-                {/* Bedrooms */}
-                <div>
-                  <h3 className="font-medium text-surface-900 mb-3">Bedrooms</h3>
-                  <div className="flex flex-wrap gap-2">
-                    {[0, 1, 2, 3, 4, 5].map(num => (
+                {/* Modern Bedrooms */}
+                <div className="filter-item-enter bg-gradient-to-r from-surface-50/50 to-surface-100/50 p-5 rounded-2xl border border-surface-200/50">
+                  <div className="flex items-center space-x-2 mb-4">
+                    <ApperIcon name="Bed" className="w-4 h-4 text-primary" />
+                    <h3 className="font-semibold text-surface-900">Bedrooms</h3>
+                  </div>
+                  <div className="flex flex-wrap gap-3">
+{[0, 1, 2, 3, 4, 5].map(num => (
                       <button
                         key={num}
                         onClick={() => handleBedroomChange(num)}
-                        className={`px-4 py-2 rounded-lg border transition-all ${
+                        className={`px-5 py-3 rounded-xl border-2 transition-all duration-200 modern-button font-medium ${
                           filters.bedrooms === num
-                            ? 'bg-primary text-white border-primary'
-                            : 'bg-white text-surface-700 border-surface-300 hover:border-primary'
+                            ? 'bg-gradient-primary text-white border-transparent shadow-lg'
+                            : 'bg-white/80 text-surface-700 border-surface-300 hover:border-primary hover:bg-primary/5'
                         }`}
                       >
                         {num === 0 ? 'Any' : `${num}+`}
@@ -130,18 +142,21 @@ const FilterPanel = ({ isOpen, onClose, onFilterChange, currentFilters = {} }) =
                   </div>
                 </div>
 
-                {/* Bathrooms */}
-                <div>
-                  <h3 className="font-medium text-surface-900 mb-3">Bathrooms</h3>
-                  <div className="flex flex-wrap gap-2">
+                {/* Modern Bathrooms */}
+                <div className="filter-item-enter bg-gradient-to-r from-surface-50/50 to-surface-100/50 p-5 rounded-2xl border border-surface-200/50">
+                  <div className="flex items-center space-x-2 mb-4">
+                    <ApperIcon name="Bath" className="w-4 h-4 text-primary" />
+                    <h3 className="font-semibold text-surface-900">Bathrooms</h3>
+                  </div>
+<div className="flex flex-wrap gap-3">
                     {[0, 1, 2, 3, 4].map(num => (
                       <button
                         key={num}
                         onClick={() => handleBathroomChange(num)}
-                        className={`px-4 py-2 rounded-lg border transition-all ${
+                        className={`px-5 py-3 rounded-xl border-2 transition-all duration-200 modern-button font-medium ${
                           filters.bathrooms === num
-                            ? 'bg-primary text-white border-primary'
-                            : 'bg-white text-surface-700 border-surface-300 hover:border-primary'
+                            ? 'bg-gradient-primary text-white border-transparent shadow-lg'
+                            : 'bg-white/80 text-surface-700 border-surface-300 hover:border-primary hover:bg-primary/5'
                         }`}
                       >
                         {num === 0 ? 'Any' : `${num}+`}
@@ -150,14 +165,17 @@ const FilterPanel = ({ isOpen, onClose, onFilterChange, currentFilters = {} }) =
                   </div>
                 </div>
 
-                {/* Property Type */}
-                <div>
-                  <h3 className="font-medium text-surface-900 mb-3">Property Type</h3>
-                  <div className="space-y-2">
-                    {propertyTypes.map(type => (
+                {/* Modern Property Type */}
+                <div className="filter-item-enter bg-gradient-to-r from-surface-50/50 to-surface-100/50 p-5 rounded-2xl border border-surface-200/50">
+                  <div className="flex items-center space-x-2 mb-4">
+                    <ApperIcon name="Home" className="w-4 h-4 text-primary" />
+                    <h3 className="font-semibold text-surface-900">Property Type</h3>
+                  </div>
+                  <div className="space-y-3">
+{propertyTypes.map(type => (
                       <label
                         key={type}
-                        className="flex items-center cursor-pointer"
+                        className="flex items-center cursor-pointer p-3 rounded-xl hover:bg-surface-50/80 transition-all duration-200"
                       >
                         <input
                           type="checkbox"
@@ -165,65 +183,70 @@ const FilterPanel = ({ isOpen, onClose, onFilterChange, currentFilters = {} }) =
                           onChange={() => handlePropertyTypeToggle(type)}
                           className="sr-only"
                         />
-                        <div className={`w-5 h-5 rounded border-2 flex items-center justify-center mr-3 transition-all ${
+                        <div className={`w-6 h-6 rounded-lg border-2 flex items-center justify-center mr-4 transition-all duration-200 ${
                           filters.propertyTypes.includes(type)
-                            ? 'bg-primary border-primary'
-                            : 'border-surface-300 hover:border-primary'
+                            ? 'bg-gradient-primary border-transparent shadow-md'
+                            : 'border-surface-300 hover:border-primary bg-white'
                         }`}>
                           {filters.propertyTypes.includes(type) && (
-                            <ApperIcon name="Check" className="w-3 h-3 text-white" />
+                            <ApperIcon name="Check" className="w-3.5 h-3.5 text-white" />
                           )}
                         </div>
-                        <span className="text-surface-700">{type}</span>
+                        <span className="text-surface-700 font-medium">{type}</span>
                       </label>
                     ))}
                   </div>
                 </div>
 
-                {/* Active Filters */}
+{/* Modern Active Filters */}
                 {getActiveFilterCount() > 0 && (
-                  <div>
-                    <div className="flex items-center justify-between mb-3">
-                      <h3 className="font-medium text-surface-900">Active Filters</h3>
+                  <div className="filter-item-enter bg-gradient-to-r from-primary/5 to-accent/5 p-5 rounded-2xl border border-primary/20">
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="flex items-center space-x-2">
+                        <ApperIcon name="Filter" className="w-4 h-4 text-primary" />
+                        <h3 className="font-semibold text-surface-900">Active Filters</h3>
+                      </div>
                       <button
                         onClick={handleClearFilters}
-                        className="text-sm text-primary hover:text-primary/80 transition-colors"
+                        className="text-sm text-primary hover:text-primary/80 transition-colors px-3 py-1 rounded-lg hover:bg-primary/10"
                       >
                         Clear All
                       </button>
                     </div>
                     <div className="flex flex-wrap gap-2">
                       {(filters.priceMin > 0 || filters.priceMax < 2000000) && (
-                        <Badge variant="primary">
+                        <Badge variant="primary" className="badge-pulse">
                           ${(filters.priceMin/1000).toFixed(0)}K - ${(filters.priceMax/1000).toFixed(0)}K
                         </Badge>
                       )}
                       {filters.bedrooms > 0 && (
-                        <Badge variant="primary">{filters.bedrooms}+ Bedrooms</Badge>
+                        <Badge variant="primary" className="badge-pulse">{filters.bedrooms}+ Bedrooms</Badge>
                       )}
                       {filters.bathrooms > 0 && (
-                        <Badge variant="primary">{filters.bathrooms}+ Bathrooms</Badge>
+                        <Badge variant="primary" className="badge-pulse">{filters.bathrooms}+ Bathrooms</Badge>
                       )}
                       {filters.propertyTypes.map(type => (
-                        <Badge key={type} variant="primary">{type}</Badge>
+                        <Badge key={type} variant="primary" className="badge-pulse">{type}</Badge>
                       ))}
                     </div>
                   </div>
                 )}
 
-                {/* Action Buttons */}
-                <div className="flex space-x-3 pt-6 lg:hidden">
+                {/* Modern Action Buttons */}
+                <div className="flex space-x-4 pt-8 lg:hidden">
                   <Button
                     variant="outline"
                     onClick={handleClearFilters}
-                    className="flex-1"
+                    className="flex-1 modern-button border-2 border-surface-300 hover:border-primary text-surface-700 hover:text-primary"
                   >
+                    <ApperIcon name="RotateCcw" className="w-4 h-4 mr-2" />
                     Clear
                   </Button>
                   <Button
                     onClick={handleApplyFilters}
-                    className="flex-1"
+                    className="flex-1 modern-button bg-gradient-primary hover:shadow-xl"
                   >
+                    <ApperIcon name="Check" className="w-4 h-4 mr-2" />
                     Apply Filters
                   </Button>
                 </div>

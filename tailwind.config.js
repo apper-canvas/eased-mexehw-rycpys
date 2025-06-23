@@ -4,7 +4,7 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
-  theme: {
+theme: {
     extend: {
       colors: {
         primary: '#2C5282',
@@ -26,7 +26,26 @@ export default {
         success: '#48BB78',
         warning: '#F6AD55',
         error: '#F56565',
-        info: '#4299E1'
+        info: '#4299E1',
+        gradient: {
+          primary: {
+            from: '#667eea',
+            to: '#764ba2'
+          },
+          secondary: {
+            from: '#f093fb',
+            to: '#f5576c'
+          },
+          accent: {
+            from: '#4facfe',
+            to: '#00f2fe'
+          }
+        }
+      },
+      backgroundImage: {
+        'gradient-primary': 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+        'gradient-secondary': 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+        'gradient-accent': 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
       },
       fontFamily: {
         sans: ['Inter', 'ui-sans-serif', 'system-ui'],

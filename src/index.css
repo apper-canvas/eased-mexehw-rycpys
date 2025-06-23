@@ -54,3 +54,85 @@ body {
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background: #94a3b8;
 }
+
+/* Modern Filter Animations */
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.filter-panel-enter {
+  animation: slideInLeft 0.3s ease-out;
+}
+
+.filter-item-enter {
+  animation: fadeInUp 0.2s ease-out;
+}
+
+/* Modern Glassmorphism Effects */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Enhanced Button Hover Effects */
+.modern-button {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateY(0);
+}
+
+.modern-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.modern-button:active {
+  transform: translateY(0);
+}
+
+/* Modern Badge Animations */
+.badge-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: .8;
+  }
+}
+
+/* Enhanced Slider Styling */
+.modern-slider-track {
+  background: linear-gradient(90deg, #e2e8f0 0%, #cbd5e1 100%);
+  border-radius: 10px;
+  position: relative;
+  overflow: hidden;
+}
+
+.modern-slider-fill {
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}

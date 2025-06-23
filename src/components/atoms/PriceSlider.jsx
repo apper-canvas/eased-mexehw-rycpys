@@ -38,18 +38,23 @@ const PriceSlider = ({
     return `$${price.toLocaleString()}`
   }
 
-  return (
-    <div className={`space-y-4 ${className}`}>
-      <div className="flex justify-between text-sm font-medium text-surface-700">
-        <span>{formatPrice(localValue[0])}</span>
-        <span>{formatPrice(localValue[1])}</span>
+return (
+    <div className={`space-y-5 ${className}`}>
+      <div className="flex justify-between items-center">
+        <div className="bg-gradient-to-r from-primary/10 to-primary/5 px-3 py-2 rounded-lg">
+          <span className="text-sm font-bold text-primary">{formatPrice(localValue[0])}</span>
+        </div>
+        <div className="h-px bg-gradient-to-r from-surface-200 via-primary/30 to-surface-200 flex-1 mx-3"></div>
+        <div className="bg-gradient-to-r from-primary/5 to-primary/10 px-3 py-2 rounded-lg">
+          <span className="text-sm font-bold text-primary">{formatPrice(localValue[1])}</span>
+        </div>
       </div>
       
-      <div className="relative">
-        {/* Track */}
-        <div className="h-2 bg-surface-200 rounded-full">
+      <div className="relative py-2">
+        {/* Modern Track */}
+        <div className="h-3 modern-slider-track rounded-full shadow-inner">
           <div 
-            className="h-2 bg-primary rounded-full"
+            className="h-3 modern-slider-fill rounded-full shadow-md"
             style={{
               left: `${(localValue[0] / max) * 100}%`,
               width: `${((localValue[1] - localValue[0]) / max) * 100}%`
@@ -80,26 +85,38 @@ const PriceSlider = ({
         />
       </div>
       
-      <style jsx>{`
+<style jsx>{`
         .slider-thumb::-webkit-slider-thumb {
           appearance: none;
-          width: 20px;
-          height: 20px;
+          width: 24px;
+          height: 24px;
           border-radius: 50%;
-          background: #2C5282;
+          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
           cursor: pointer;
-          border: 2px solid white;
-          box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+          border: 3px solid white;
+          box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4), 0 2px 4px rgba(0,0,0,0.1);
+          transition: all 0.2s ease;
+        }
+        
+        .slider-thumb::-webkit-slider-thumb:hover {
+          transform: scale(1.1);
+          box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6), 0 4px 8px rgba(0,0,0,0.15);
         }
         
         .slider-thumb::-moz-range-thumb {
-          width: 20px;
-          height: 20px;
+          width: 24px;
+          height: 24px;
           border-radius: 50%;
-          background: #2C5282;
+          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
           cursor: pointer;
-          border: 2px solid white;
-          box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+          border: 3px solid white;
+          box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4), 0 2px 4px rgba(0,0,0,0.1);
+          transition: all 0.2s ease;
+        }
+        
+        .slider-thumb::-moz-range-thumb:hover {
+          transform: scale(1.1);
+          box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6), 0 4px 8px rgba(0,0,0,0.15);
         }
       `}</style>
     </div>

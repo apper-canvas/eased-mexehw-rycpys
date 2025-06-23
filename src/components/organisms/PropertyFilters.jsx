@@ -30,25 +30,25 @@ const PropertyFilters = ({
 
 return (
     <>
-      {/* Sticky Search Bar Section */}
-      <div className="bg-white border-b border-surface-200 sticky top-0 z-40">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      {/* Modern Sticky Search Bar Section */}
+      <div className="bg-gradient-to-r from-white via-surface-50/50 to-white border-b border-surface-200/80 backdrop-blur-sm sticky top-0 z-40 shadow-sm">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="w-full">
             <SearchBar onSearch={onSearch} initialValue={searchTerm} />
           </div>
         </div>
       </div>
 
-      {/* Scrolling Filter Controls Section */}
-      <div className="bg-white border-b border-surface-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          {/* View Controls */}
-          <div className="flex items-center justify-between flex-wrap gap-3 mb-4">
-            <div className="flex items-center space-x-3">
+      {/* Modern Filter Controls Section */}
+      <div className="bg-gradient-to-r from-white via-surface-50/30 to-white border-b border-surface-200/60">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+{/* Modern View Controls */}
+          <div className="flex items-center justify-between flex-wrap gap-4 mb-6">
+            <div className="flex items-center space-x-4">
               <Button
                 variant="outline"
                 onClick={() => setIsFilterPanelOpen(true)}
-                className="relative lg:hidden"
+                className="relative lg:hidden modern-button border-2 border-surface-300 hover:border-primary bg-white/80 backdrop-blur-sm shadow-sm"
               >
                 <ApperIcon name="Filter" className="w-4 h-4 mr-2" />
                 Filters
@@ -56,7 +56,7 @@ return (
                   <Badge 
                     variant="primary" 
                     size="sm"
-                    className="absolute -top-2 -right-2 min-w-[20px] h-5 flex items-center justify-center p-1"
+                    className="absolute -top-2 -right-2 min-w-[22px] h-6 flex items-center justify-center p-1 bg-gradient-primary shadow-lg badge-pulse"
                   >
                     {activeFilterCount}
                   </Badge>
@@ -67,32 +67,38 @@ return (
             <ViewToggle currentView={currentView} onViewChange={onViewChange} />
           </div>
 
-          {/* Results Count and Active Filters */}
-          <div className="flex flex-wrap items-center justify-between gap-2">
-            <p className="text-sm text-surface-600">
-              {resultCount} {resultCount === 1 ? 'property' : 'properties'} found
-              {searchTerm && (
-                <span> for "{searchTerm}"</span>
-              )}
-            </p>
+{/* Modern Results Count and Active Filters */}
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            <div className="flex items-center space-x-2">
+              <div className="w-2 h-2 bg-gradient-primary rounded-full"></div>
+              <p className="text-sm font-medium text-surface-700">
+                {resultCount} {resultCount === 1 ? 'property' : 'properties'} found
+                {searchTerm && (
+                  <span className="text-primary font-semibold"> for "{searchTerm}"</span>
+                )}
+              </p>
+            </div>
 
-            {/* Active Filters Desktop */}
+            {/* Modern Active Filters Desktop */}
             {activeFilterCount > 0 && (
-              <div className="hidden lg:flex items-center space-x-2">
-                <span className="text-sm text-surface-600">Filters:</span>
+              <div className="hidden lg:flex items-center space-x-3 bg-gradient-to-r from-surface-50/80 to-surface-100/50 px-4 py-2 rounded-xl border border-surface-200/50">
+                <div className="flex items-center space-x-1">
+                  <ApperIcon name="Filter" className="w-3 h-3 text-primary" />
+                  <span className="text-sm font-medium text-surface-600">Active:</span>
+                </div>
                 {(filters.priceMin > 0 || filters.priceMax < 2000000) && (
-                  <Badge variant="primary" size="sm">
+                  <Badge variant="primary" size="sm" className="shadow-sm">
                     ${(filters.priceMin/1000).toFixed(0)}K - ${(filters.priceMax/1000).toFixed(0)}K
                   </Badge>
                 )}
                 {filters.bedrooms > 0 && (
-                  <Badge variant="primary" size="sm">{filters.bedrooms}+ Beds</Badge>
+                  <Badge variant="primary" size="sm" className="shadow-sm">{filters.bedrooms}+ Beds</Badge>
                 )}
                 {filters.bathrooms > 0 && (
-                  <Badge variant="primary" size="sm">{filters.bathrooms}+ Baths</Badge>
+                  <Badge variant="primary" size="sm" className="shadow-sm">{filters.bathrooms}+ Baths</Badge>
                 )}
                 {filters.propertyTypes && filters.propertyTypes.map(type => (
-                  <Badge key={type} variant="primary" size="sm">{type}</Badge>
+                  <Badge key={type} variant="primary" size="sm" className="shadow-sm">{type}</Badge>
                 ))}
               </div>
             )}
