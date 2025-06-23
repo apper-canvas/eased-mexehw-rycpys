@@ -28,13 +28,13 @@ const Input = ({
           {required && <span className="text-error ml-1">*</span>}
         </label>
       )}
-      <input
+<input
         type={type}
         value={value}
         onChange={onChange}
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
-        placeholder={focused ? placeholder : ''}
+        placeholder={placeholder}
         className={`
           w-full px-3 py-3 border rounded-md transition-all duration-200
           ${label ? 'pt-6 pb-2' : 'py-3'}
@@ -43,6 +43,7 @@ const Input = ({
             : 'border-surface-300 focus:border-primary focus:ring-primary/20'
           }
           focus:outline-none focus:ring-2
+          text-surface-900 caret-surface-900
           placeholder:text-surface-400
         `}
         {...props}
