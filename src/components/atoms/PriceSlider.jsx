@@ -50,11 +50,11 @@ return (
         </div>
       </div>
       
-      <div className="relative py-2">
+<div className="relative py-2">
         {/* Modern Track */}
-        <div className="h-3 modern-slider-track rounded-full shadow-inner">
+        <div className="h-3 modern-slider-track rounded-full shadow-inner relative">
           <div 
-            className="h-3 modern-slider-fill rounded-full shadow-md"
+            className="h-3 modern-slider-fill rounded-full shadow-md absolute top-0"
             style={{
               left: `${(localValue[0] / max) * 100}%`,
               width: `${((localValue[1] - localValue[0]) / max) * 100}%`
@@ -62,7 +62,7 @@ return (
           />
         </div>
         
-        {/* Min slider */}
+        {/* Min slider - lower z-index */}
         <input
           type="range"
           min={min}
@@ -70,10 +70,11 @@ return (
           step={step}
           value={localValue[0]}
           onChange={handleMinChange}
-          className="absolute top-0 left-0 w-full h-2 bg-transparent appearance-none cursor-pointer slider-thumb"
+          className="absolute top-0 left-0 w-full h-7 bg-transparent appearance-none cursor-pointer slider-thumb z-10"
+          style={{ pointerEvents: 'all' }}
         />
         
-        {/* Max slider */}
+        {/* Max slider - higher z-index when values are close */}
         <input
           type="range"
           min={min}
@@ -81,42 +82,66 @@ return (
           step={step}
           value={localValue[1]}
           onChange={handleMaxChange}
-          className="absolute top-0 left-0 w-full h-2 bg-transparent appearance-none cursor-pointer slider-thumb"
+          className="absolute top-0 left-0 w-full h-7 bg-transparent appearance-none cursor-pointer slider-thumb z-20"
+          style={{ pointerEvents: 'all' }}
         />
       </div>
       
 <style jsx>{`
-        .slider-thumb::-webkit-slider-thumb {
-          appearance: none;
-          width: 24px;
-          height: 24px;
-          border-radius: 50%;
-          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-          cursor: pointer;
-          border: 3px solid white;
-          box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4), 0 2px 4px rgba(0,0,0,0.1);
-          transition: all 0.2s ease;
+        .slider-thumb {
+          pointer-events: all;
         }
         
-        .slider-thumb::-webkit-slider-thumb:hover {
+        .slider-thumb::-webkit-slider-thumb {
+          appearance: none;
+          width: 20px;
+          height: 20px;
+          border-radius: 50%;
+          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          cursor: grab;
+          border: 2px solid white;
+          box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3), 0 1px 3px rgba(0,0,0,0.1);
+          transition: all 0.15s ease;
+          pointer-events: auto;
+        }
+        
+        .slider-thumb:active::-webkit-slider-thumb {
+          cursor: grabbing;
+          transform: scale(1.05);
+          box-shadow: 0 4px 16px rgba(102, 126, 234, 0.5), 0 2px 6px rgba(0,0,0,0.15);
+        }
+        
+        .slider-thumb:hover::-webkit-slider-thumb {
           transform: scale(1.1);
-          box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6), 0 4px 8px rgba(0,0,0,0.15);
+          box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4), 0 2px 4px rgba(0,0,0,0.12);
         }
         
         .slider-thumb::-moz-range-thumb {
-          width: 24px;
-          height: 24px;
+          width: 20px;
+          height: 20px;
           border-radius: 50%;
           background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-          cursor: pointer;
-          border: 3px solid white;
-          box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4), 0 2px 4px rgba(0,0,0,0.1);
-          transition: all 0.2s ease;
+          cursor: grab;
+          border: 2px solid white;
+          box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3), 0 1px 3px rgba(0,0,0,0.1);
+          transition: all 0.15s ease;
+          pointer-events: auto;
         }
         
-        .slider-thumb::-moz-range-thumb:hover {
+        .slider-thumb:active::-moz-range-thumb {
+          cursor: grabbing;
+          transform: scale(1.05);
+          box-shadow: 0 4px 16px rgba(102, 126, 234, 0.5), 0 2px 6px rgba(0,0,0,0.15);
+        }
+        
+        .slider-thumb:hover::-moz-range-thumb {
           transform: scale(1.1);
-          box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6), 0 4px 8px rgba(0,0,0,0.15);
+          box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4), 0 2px 4px rgba(0,0,0,0.12);
+        }
+        
+        .slider-thumb::-moz-range-track {
+          background: transparent;
+          border: none;
         }
       `}</style>
     </div>
