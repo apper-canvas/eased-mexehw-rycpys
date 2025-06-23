@@ -29,33 +29,36 @@ const PropertyFilters = ({
   const activeFilterCount = getActiveFilterCount()
 
   return (
-    <div className="bg-white border-b border-surface-200 sticky top-0 z-30">
+<div className="bg-white border-b border-surface-200 sticky top-0 z-30">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
         {/* Search and Controls */}
-        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-4">
-{/* Search Bar */}
-          <div className="flex-1 max-w-2xl">
+        <div className="flex flex-col gap-4 mb-4">
+          {/* Search Bar */}
+          <div className="w-full">
             <SearchBar onSearch={onSearch} initialValue={searchTerm} />
           </div>
+          
           {/* View Controls */}
-          <div className="flex items-center space-x-4">
-            <Button
-              variant="outline"
-              onClick={() => setIsFilterPanelOpen(true)}
-              className="relative lg:hidden"
-            >
-              <ApperIcon name="Filter" className="w-4 h-4 mr-2" />
-              Filters
-              {activeFilterCount > 0 && (
-                <Badge 
-                  variant="primary" 
-                  size="sm"
-                  className="absolute -top-2 -right-2 min-w-[20px] h-5 flex items-center justify-center p-1"
-                >
-                  {activeFilterCount}
-                </Badge>
-              )}
-            </Button>
+          <div className="flex items-center justify-between flex-wrap gap-3">
+            <div className="flex items-center space-x-3">
+              <Button
+                variant="outline"
+                onClick={() => setIsFilterPanelOpen(true)}
+                className="relative lg:hidden"
+              >
+                <ApperIcon name="Filter" className="w-4 h-4 mr-2" />
+                Filters
+                {activeFilterCount > 0 && (
+                  <Badge 
+                    variant="primary" 
+                    size="sm"
+                    className="absolute -top-2 -right-2 min-w-[20px] h-5 flex items-center justify-center p-1"
+                  >
+                    {activeFilterCount}
+                  </Badge>
+                )}
+              </Button>
+            </div>
             
             <ViewToggle currentView={currentView} onViewChange={onViewChange} />
           </div>
