@@ -4,26 +4,59 @@ import { motion } from 'framer-motion'
 import { toast } from 'react-toastify'
 import ApperIcon from '@/components/ApperIcon'
 import Button from '@/components/atoms/Button'
+import agentService from '@/services/api/agentService'
 
 const AgentCard = ({ agent }) => {
   const [isContacting, setIsContacting] = useState(false)
 
   const handleContact = async (type, value) => {
+    if (!agent || !agent.Id) {
+      toast.error('Agent information not available')
+      return
+    }
+
     setIsContacting(true)
     
     try {
-      // Simulate contact action
-      await new Promise(resolve => setTimeout(resolve, 500))
-      
-      if (type === 'email') {
-        window.location.href = `mailto:${value}`
-        toast.success('Opening email client...')
-      } else if (type === 'phone') {
-        window.location.href = `tel:${value}`
-        toast.success('Initiating phone call...')
+      // Validate contact information
+      if (type === 'email' && (!value || !value.includes('@'))) {
+        throw new Error('Invalid email address')
+      }
+      if (type === 'phone' && !value) {
+        throw new Error('Phone number not available')
+      }
+
+      // Use agent service for contact
+      const result = await agentService.contactAgent(agent.Id, type, '', {
+        name: 'Website Visitor',
+        email: '',
+        phone: ''
+      })
+
+      if (result.success) {
+        if (type === 'email') {
+          // Open email client as fallback
+          window.location.href = `mailto:${value}?subject=Real Estate Inquiry&body=Hello ${agent.name}, I'm interested in your real estate services.`
+          toast.success(`Email prepared for ${agent.name}. Please send your message.`)
+        } else if (type === 'phone') {
+          // Attempt to initiate call
+          window.location.href = `tel:${value}`
+          toast.success(`Calling ${agent.name} at ${value}`)
+        }
+      } else {
+        throw new Error(result.message)
       }
     } catch (error) {
-      toast.error('Unable to initiate contact. Please try again.')
+      console.error('Contact error:', error)
+      
+      // Provide specific error messages
+      if (error.message.includes('email')) {
+        toast.error('Email contact unavailable. Please try calling instead.')
+      } else if (error.message.includes('phone')) {
+        toast.error('Phone contact unavailable. Please try email instead.')
+      } else {
+        toast.error(`Unable to contact ${agent.name}. Please try again later.`)
+      }
     } finally {
       setIsContacting(false)
     }

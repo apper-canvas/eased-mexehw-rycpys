@@ -11,6 +11,7 @@ import SkeletonLoader from '@/components/atoms/SkeletonLoader'
 import ErrorState from '@/components/atoms/ErrorState'
 import propertyService from '@/services/api/propertyService'
 import favoriteService from '@/services/api/favoriteService'
+import agentService from '@/services/api/agentService'
 
 const PropertyDetail = () => {
   const { id } = useParams()
@@ -76,8 +77,57 @@ const PropertyDetail = () => {
     }
   }
 
-  const handleContactAgent = () => {
-    toast.success('Contact form would open here')
+const handleContactAgent = async () => {
+    if (!property || !property.agentId) {
+      toast.error('Agent information not available for this property')
+      return
+    }
+
+    try {
+      setLoading(true)
+      
+      // Get agent contact methods
+      const contactMethods = await agentService.getContactMethods(property.agentId)
+      
+      if (contactMethods.length === 0) {
+        toast.error('No contact methods available for this agent')
+        return
+      }
+
+      // Prefer email, fallback to phone
+      const preferredMethod = contactMethods.includes('email') ? 'email' : 'phone'
+      
+      const result = await agentService.contactAgent(
+        property.agentId, 
+        preferredMethod, 
+        `I'm interested in the property at ${property.address}, ${property.city}. Please contact me to discuss this listing.`,
+        {
+          name: 'Property Inquirer',
+          email: '',
+          phone: ''
+        }
+      )
+
+      if (result.success) {
+        if (preferredMethod === 'email') {
+          // Open email client with pre-filled content
+          const subject = encodeURIComponent(`Inquiry about ${property.title}`)
+          const body = encodeURIComponent(`Hello ${result.agentInfo.name},\n\nI'm interested in the property listed at ${property.address}, ${property.city}. Could you please provide more information and schedule a viewing?\n\nProperty ID: #${property.Id}\nListing: ${property.title}\n\nThank you for your time.\n\nBest regards`)
+          window.location.href = `mailto:${result.agentInfo.email}?subject=${subject}&body=${body}`
+        } else if (preferredMethod === 'phone') {
+          window.location.href = `tel:${result.agentInfo.phone}`
+        }
+        
+        toast.success(`Contacting ${result.agentInfo.name} from ${result.agentInfo.company}`)
+      } else {
+        throw new Error(result.message)
+      }
+    } catch (error) {
+      console.error('Contact agent error:', error)
+      toast.error(error.message || 'Failed to contact agent. Please try again.')
+    } finally {
+      setLoading(false)
+    }
   }
 
   const handleScheduleViewing = () => {
