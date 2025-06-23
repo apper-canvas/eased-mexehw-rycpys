@@ -1,0 +1,177 @@
+[
+  {
+    "Id": 1,
+    "name": "Sarah Johnson",
+    "title": "Senior Real Estate Agent",
+    "company": "Premier Properties",
+    "email": "sarah.johnson@premierproperties.com",
+    "phone": "(555) 123-4567",
+    "image": "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=400&h=400&fit=crop&crop=face&auto=format",
+    "bio": "With over 10 years of experience in luxury real estate, Sarah specializes in high-end residential properties and has helped over 200 families find their dream homes.",
+    "specialties": ["Luxury Homes", "First-Time Buyers", "Investment Properties"],
+    "rating": 4.9,
+    "reviewCount": 127,
+    "yearsExperience": 10,
+    "salesVolume": "$45M",
+    "propertiesSold": 234,
+    "languages": ["English", "Spanish"],
+    "certifications": ["CRS", "GRI", "ABR"],
+    "socialMedia": {
+      "linkedin": "https://linkedin.com/in/sarahjohnson",
+      "instagram": "https://instagram.com/sarahsellshomes"
+    }
+  },
+  {
+    "Id": 2,
+    "name": "Michael Chen",
+    "title": "Real Estate Broker",
+    "company": "Urban Realty Group",
+    "email": "michael.chen@urbanrealty.com",
+    "phone": "(555) 234-5678",
+    "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face&auto=format",
+    "bio": "Michael is a top-performing broker specializing in urban condominiums and downtown living. His market expertise and negotiation skills have earned him numerous industry awards.",
+    "specialties": ["Condominiums", "Urban Properties", "Commercial Real Estate"],
+    "rating": 4.8,
+    "reviewCount": 89,
+    "yearsExperience": 8,
+    "salesVolume": "$32M",
+    "propertiesSold": 156,
+    "languages": ["English", "Mandarin", "Cantonese"],
+    "certifications": ["CCIM", "CRE"],
+    "socialMedia": {
+      "linkedin": "https://linkedin.com/in/michaelchen",
+      "twitter": "https://twitter.com/mikechensells"
+    }
+  },
+  {
+    "Id": 3,
+    "name": "Emily Rodriguez",
+    "title": "Residential Sales Agent",
+    "company": "Hometown Realty",
+    "email": "emily.rodriguez@hometownrealty.com",
+    "phone": "(555) 345-6789",
+    "image": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop&crop=face&auto=format",
+    "bio": "Emily brings a fresh perspective to real estate with her background in interior design. She helps clients envision the potential in every property and makes the buying process enjoyable.",
+    "specialties": ["Family Homes", "Relocation", "Interior Design Consultation"],
+    "rating": 4.7,
+    "reviewCount": 64,
+    "yearsExperience": 5,
+    "salesVolume": "$18M",
+    "propertiesSold": 98,
+    "languages": ["English", "Spanish", "Portuguese"],
+    "certifications": ["ABR", "RRS"],
+    "socialMedia": {
+      "instagram": "https://instagram.com/emilysellshomes",
+      "facebook": "https://facebook.com/emilyrodriguezrealty"
+    }
+  },
+  {
+    "Id": 4,
+    "name": "David Thompson",
+    "title": "Investment Property Specialist",
+    "company": "Capital Investments Realty",
+    "email": "david.thompson@capitalinvestments.com",
+    "phone": "(555) 456-7890",
+    "image": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face&auto=format",
+    "bio": "David has been helping investors build wealth through real estate for over 12 years. His analytical approach and market insights have generated millions in returns for his clients.",
+    "specialties": ["Investment Properties", "Multi-Family", "Fix & Flip"],
+    "rating": 4.9,
+    "reviewCount": 156,
+    "yearsExperience": 12,
+    "salesVolume": "$78M",
+    "propertiesSold": 312,
+    "languages": ["English", "French"],
+    "certifications": ["CCIM", "CRS", "CIPS"],
+    "socialMedia": {
+      "linkedin": "https://linkedin.com/in/davidthompsonrealty",
+      "youtube": "https://youtube.com/c/davidtinvests"
+    }
+  },
+  {
+    "Id": 5,
+    "name": "Lisa Park",
+    "title": "Luxury Home Specialist",
+    "company": "Elite Properties",
+    "email": "lisa.park@eliteproperties.com",
+    "phone": "(555) 567-8901",
+    "image": "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=400&h=400&fit=crop&crop=face&auto=format",
+    "bio": "Lisa specializes in luxury estates and waterfront properties. Her attention to detail and white-glove service have made her the go-to agent for high-net-worth clients.",
+    "specialties": ["Luxury Estates", "Waterfront Properties", "Historic Homes"],
+    "rating": 5.0,
+    "reviewCount": 43,
+    "yearsExperience": 7,
+    "salesVolume": "$92M",
+    "propertiesSold": 87,
+    "languages": ["English", "Korean", "Japanese"],
+    "certifications": ["CLHMS", "CRS", "CIPS"],
+    "socialMedia": {
+      "instagram": "https://instagram.com/lisaparkluxury",
+      "linkedin": "https://linkedin.com/in/lisaparkrealty"
+    }
+  },
+  {
+    "Id": 6,
+    "name": "Robert Martinez",
+    "title": "Commercial Real Estate Agent",
+    "company": "Business Properties Inc.",
+    "email": "robert.martinez@businessproperties.com",
+    "phone": "(555) 678-9012",
+    "image": "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&h=400&fit=crop&crop=face&auto=format",
+    "bio": "Robert has over 15 years of experience in commercial real estate, helping businesses find the perfect location for growth. His portfolio includes retail, office, and industrial properties.",
+    "specialties": ["Commercial Sales", "Retail Spaces", "Office Buildings"],
+    "rating": 4.8,
+    "reviewCount": 78,
+    "yearsExperience": 15,
+    "salesVolume": "$156M",
+    "propertiesSold": 167,
+    "languages": ["English", "Spanish"],
+    "certifications": ["CCIM", "SIOR", "CRE"],
+    "socialMedia": {
+      "linkedin": "https://linkedin.com/in/robertmartinezcommercial"
+    }
+  },
+  {
+    "Id": 7,
+    "name": "Jennifer Kim",
+    "title": "New Construction Specialist",
+    "company": "Modern Living Realty",
+    "email": "jennifer.kim@modernliving.com",
+    "phone": "(555) 789-0123",
+    "image": "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&h=400&fit=crop&crop=face&auto=format",
+    "bio": "Jennifer specializes in new construction homes and planned communities. She works closely with builders to help clients customize their perfect home from the ground up.",
+    "specialties": ["New Construction", "Custom Homes", "Planned Communities"],
+    "rating": 4.6,
+    "reviewCount": 52,
+    "yearsExperience": 6,
+    "salesVolume": "$28M",
+    "propertiesSold": 134,
+    "languages": ["English", "Korean"],
+    "certifications": ["ABR", "GRI", "SRS"],
+    "socialMedia": {
+      "instagram": "https://instagram.com/jenniferkimhomes",
+      "facebook": "https://facebook.com/jenniferkimrealty"
+    }
+  },
+  {
+    "Id": 8,
+    "name": "James Wilson",
+    "title": "Senior Real Estate Consultant",
+    "company": "Heritage Realty",
+    "email": "james.wilson@heritagerealty.com",
+    "phone": "(555) 890-1234",
+    "image": "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=400&fit=crop&crop=face&auto=format",
+    "bio": "With 20+ years in real estate, James has seen every market condition. His experience and steady guidance have helped countless families navigate complex real estate transactions.",
+    "specialties": ["Residential Sales", "Market Analysis", "Estate Sales"],
+    "rating": 4.9,
+    "reviewCount": 203,
+    "yearsExperience": 22,
+    "salesVolume": "$67M",
+    "propertiesSold": 445,
+    "languages": ["English"],
+    "certifications": ["CRS", "GRI", "SRES"],
+    "socialMedia": {
+      "linkedin": "https://linkedin.com/in/jameswilsonrealty",
+      "facebook": "https://facebook.com/jameswilsonrealtor"
+    }
+  }
+]
