@@ -33,11 +33,10 @@ const PropertyFilters = ({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
         {/* Search and Controls */}
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-4">
-          {/* Search Bar */}
+{/* Search Bar */}
           <div className="flex-1 max-w-2xl">
-            <SearchBar onSearch={onSearch} />
+            <SearchBar onSearch={onSearch} initialValue={searchTerm} />
           </div>
-
           {/* View Controls */}
           <div className="flex items-center space-x-4">
             <Button

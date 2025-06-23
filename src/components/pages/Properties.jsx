@@ -24,11 +24,7 @@ const Properties = () => {
     location: searchParams.get('search') || ''
   })
 
-  useEffect(() => {
-    loadProperties()
-  }, [])
-
-  useEffect(() => {
+useEffect(() => {
     // Update URL params when search changes
     if (searchTerm) {
       setSearchParams({ search: searchTerm })
@@ -37,63 +33,34 @@ const Properties = () => {
     }
   }, [searchTerm, setSearchParams])
 
-  const loadProperties = async () => {
-    setLoading(true)
-    setError(null)
-    try {
-      const result = await propertyService.search({
-        ...filters,
-        location: searchTerm
-      })
-      setProperties(result)
-    } catch (err) {
-      setError(err.message || 'Failed to load properties')
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  const handleSearch = (term) => {
-    setSearchTerm(term)
-    setFilters(prev => ({ ...prev, location: term }))
-    // Trigger search with new term
-    const searchWithTerm = async () => {
+  // Consolidated search function to prevent race conditions
+  useEffect(() => {
+    const performSearch = async () => {
       setLoading(true)
       setError(null)
       try {
         const result = await propertyService.search({
           ...filters,
-          location: term
-        })
-        setProperties(result)
-      } catch (err) {
-        setError(err.message || 'Failed to search properties')
-      } finally {
-        setLoading(false)
-      }
-    }
-    searchWithTerm()
-  }
-
-  const handleFilterChange = (newFilters) => {
-    setFilters(newFilters)
-    // Apply filters
-    const applyFilters = async () => {
-      setLoading(true)
-      setError(null)
-      try {
-        const result = await propertyService.search({
-          ...newFilters,
           location: searchTerm
         })
         setProperties(result)
       } catch (err) {
-        setError(err.message || 'Failed to filter properties')
+        setError(err.message || 'Failed to load properties')
       } finally {
         setLoading(false)
       }
     }
-    applyFilters()
+
+    performSearch()
+  }, [searchTerm, filters])
+
+const handleSearch = (term) => {
+    setSearchTerm(term)
+    setFilters(prev => ({ ...prev, location: term }))
+  }
+
+  const handleFilterChange = (newFilters) => {
+    setFilters(newFilters)
   }
 
   const handleViewChange = (view) => {
@@ -144,7 +111,7 @@ const Properties = () => {
                 loading={loading}
                 error={error}
                 viewType={viewType}
-                onRetry={loadProperties}
+onRetry={() => window.location.reload()}
               />
             </motion.div>
           </div>

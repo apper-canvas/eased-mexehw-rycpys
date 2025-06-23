@@ -1,12 +1,16 @@
-import { useState } from 'react'
-import { motion } from 'framer-motion'
-import ApperIcon from '@/components/ApperIcon'
-import Input from '@/components/atoms/Input'
-import Button from '@/components/atoms/Button'
+import React, { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import ApperIcon from "@/components/ApperIcon";
+import Button from "@/components/atoms/Button";
+import Input from "@/components/atoms/Input";
 
-const SearchBar = ({ onSearch, placeholder = "Search by city, address, or neighborhood" }) => {
-  const [searchTerm, setSearchTerm] = useState('')
+const SearchBar = ({ onSearch, placeholder = "Search by city, address, or neighborhood", initialValue = '' }) => {
+  const [searchTerm, setSearchTerm] = useState(initialValue)
 
+  // Sync with external state changes
+  useEffect(() => {
+    setSearchTerm(initialValue)
+  }, [initialValue])
   const handleSubmit = (e) => {
     e.preventDefault()
     onSearch?.(searchTerm)
