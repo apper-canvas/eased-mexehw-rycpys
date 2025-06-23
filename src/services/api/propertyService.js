@@ -93,8 +93,14 @@ async search(filters) {
       throw new Error('Property not found')
     }
     properties.splice(index, 1)
+properties.splice(index, 1)
     return true
+  },
+
+  async getMultiple(ids) {
+    await delay(300)
+    const propertyIds = ids.map(id => parseInt(id, 10))
+    const matchedProperties = properties.filter(p => propertyIds.includes(p.Id))
+    return matchedProperties.map(p => ({ ...p }))
   }
 }
-
-export default propertyService
