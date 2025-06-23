@@ -43,9 +43,11 @@ useEffect(() => {
           ...filters,
           location: searchTerm
         })
-        setProperties(result)
+        setProperties(result || [])
       } catch (err) {
+        console.error('Error searching properties:', err)
         setError(err.message || 'Failed to load properties')
+        setProperties([])
       } finally {
         setLoading(false)
       }

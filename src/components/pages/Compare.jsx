@@ -23,7 +23,7 @@ const Compare = () => {
     loadCompareData()
   }, [])
 
-  const loadCompareData = async () => {
+const loadCompareData = async () => {
     setLoading(true)
     setError(null)
     try {
@@ -33,26 +33,33 @@ const Compare = () => {
         favoriteService.getAll()
       ])
       
-      setCompareList(compareItems)
-      setFavorites(favs)
+      setCompareList(compareItems || [])
+      setFavorites(favs || [])
       
       // Load favorite properties for selection
-      if (favs.length > 0) {
+      if (favs && favs.length > 0) {
         const propertyIds = favs.map(fav => fav.propertyId)
         const availableProps = await propertyService.getMultiple(propertyIds)
-        setAvailableProperties(availableProps)
+        setAvailableProperties(availableProps || [])
+      } else {
+        setAvailableProperties([])
       }
       
       // Load properties for comparison
-      if (compareItems.length > 0) {
+      if (compareItems && compareItems.length > 0) {
         const comparePropertyIds = compareItems.map(item => item.propertyId)
         const compareProps = await propertyService.getMultiple(comparePropertyIds)
-        setProperties(compareProps)
+        setProperties(compareProps || [])
       } else {
         setProperties([])
       }
     } catch (err) {
+      console.error('Error loading comparison data:', err)
       setError(err.message || 'Failed to load comparison data')
+      setCompareList([])
+      setFavorites([])
+      setAvailableProperties([])
+      setProperties([])
     } finally {
       setLoading(false)
     }
@@ -299,9 +306,9 @@ const Compare = () => {
                     <td className="px-6 py-4 text-sm font-medium text-surface-900 sticky left-0 bg-surface-50 border-r border-surface-200">
                       Square Feet
                     </td>
-                    {properties.map((property) => (
+{properties.map((property) => (
                       <td key={property.Id} className="px-6 py-4 text-center text-sm text-surface-700">
-                        {property.sqft?.toLocaleString() || 'N/A'}
+                        {property.square_feet?.toLocaleString() || 'N/A'}
                       </td>
                     ))}
                   </tr>
@@ -311,9 +318,9 @@ const Compare = () => {
                     <td className="px-6 py-4 text-sm font-medium text-surface-900 sticky left-0 bg-white border-r border-surface-200">
                       Type
                     </td>
-                    {properties.map((property) => (
+{properties.map((property) => (
                       <td key={property.Id} className="px-6 py-4 text-center text-sm text-surface-700 capitalize">
-                        {property.propertyType}
+                        {property.property_type}
                       </td>
                     ))}
                   </tr>

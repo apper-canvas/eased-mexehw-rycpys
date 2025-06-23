@@ -20,15 +20,15 @@ const Favorites = () => {
     loadFavorites()
   }, [])
 
-  const loadFavorites = async () => {
+const loadFavorites = async () => {
     setLoading(true)
     setError(null)
     try {
       const favs = await favoriteService.getAll()
-      setFavorites(favs)
+      setFavorites(favs || [])
       
       // Load property details for each favorite
-      if (favs.length > 0) {
+      if (favs && favs.length > 0) {
         const propertyPromises = favs.map(fav => 
           propertyService.getById(fav.propertyId).catch(err => {
             console.error(`Failed to load property ${fav.propertyId}:`, err)
@@ -38,12 +38,15 @@ const Favorites = () => {
         
         const propertyResults = await Promise.all(propertyPromises)
         const validProperties = propertyResults.filter(prop => prop !== null)
-        setProperties(validProperties)
+        setProperties(validProperties || [])
       } else {
         setProperties([])
       }
     } catch (err) {
+      console.error('Error loading favorites:', err)
       setError(err.message || 'Failed to load favorites')
+      setFavorites([])
+      setProperties([])
     } finally {
       setLoading(false)
     }

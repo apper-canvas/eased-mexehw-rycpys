@@ -27,14 +27,16 @@ const Agents = () => {
     filterAgents()
   }, [agents, searchTerm, selectedSpecialty, minRating])
 
-  const loadAgents = async () => {
+const loadAgents = async () => {
     try {
       setLoading(true)
       setError(null)
       const data = await agentService.getAll()
-      setAgents(data)
+      setAgents(data || [])
     } catch (err) {
+      console.error('Error loading agents:', err)
       setError(err.message || 'Failed to load agents')
+      setAgents([])
     } finally {
       setLoading(false)
     }
@@ -43,9 +45,10 @@ const Agents = () => {
   const loadSpecialties = async () => {
     try {
       const data = await agentService.getSpecialties()
-      setSpecialties(data)
+      setSpecialties(data || [])
     } catch (err) {
       console.error('Failed to load specialties:', err)
+      setSpecialties([])
     }
   }
 

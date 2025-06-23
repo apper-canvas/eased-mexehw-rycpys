@@ -14,15 +14,17 @@ const Home = () => {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 
-  useEffect(() => {
+useEffect(() => {
     const loadFeaturedProperties = async () => {
       setLoading(true)
       setError(null)
       try {
         const properties = await propertyService.getFeatured()
-        setFeaturedProperties(properties)
+        setFeaturedProperties(properties || [])
       } catch (err) {
+        console.error('Error loading featured properties:', err)
         setError(err.message || 'Failed to load featured properties')
+        setFeaturedProperties([])
       } finally {
         setLoading(false)
       }

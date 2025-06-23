@@ -1,17 +1,25 @@
 import { Outlet, NavLink, useLocation } from 'react-router-dom'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useSelector } from 'react-redux'
 import ApperIcon from '@/components/ApperIcon'
+import Button from '@/components/atoms/Button'
 import { routes } from './config/routes'
-
+import { AuthContext } from './App'
 const Layout = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const location = useLocation()
+  const { logout } = useContext(AuthContext)
+  const { user } = useSelector((state) => state.user)
 
   const visibleRoutes = Object.values(routes).filter(route => !route.hidden)
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen)
+  }
+
+  const handleLogout = async () => {
+    await logout()
   }
 
   return (
@@ -28,25 +36,45 @@ const Layout = () => {
               </span>
             </div>
 
-            {/* Desktop Navigation */}
-            <nav className="hidden md:flex space-x-8">
-              {visibleRoutes.map(route => (
-                <NavLink
-                  key={route.id}
-                  to={route.path}
-                  className={({ isActive }) =>
-                    `flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
-                      isActive
-                        ? 'text-primary bg-primary/10'
-                        : 'text-surface-600 hover:text-primary hover:bg-surface-100'
-                    }`
-                  }
+{/* Desktop Navigation */}
+            <div className="hidden md:flex items-center space-x-8">
+              <nav className="flex space-x-8">
+                {visibleRoutes.map(route => (
+                  <NavLink
+                    key={route.id}
+                    to={route.path}
+                    className={({ isActive }) =>
+                      `flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
+                        isActive
+                          ? 'text-primary bg-primary/10'
+                          : 'text-surface-600 hover:text-primary hover:bg-surface-100'
+                      }`
+                    }
+                  >
+                    <ApperIcon name={route.icon} className="w-4 h-4" />
+                    <span>{route.label}</span>
+                  </NavLink>
+                ))}
+              </nav>
+              
+              {/* User Menu */}
+              <div className="flex items-center space-x-4 pl-4 border-l border-surface-200">
+                {user && (
+                  <span className="text-sm text-surface-600">
+                    {user.firstName} {user.lastName}
+                  </span>
+                )}
+                <Button
+                  onClick={handleLogout}
+                  variant="outline"
+                  size="sm"
+                  className="flex items-center space-x-2"
                 >
-                  <ApperIcon name={route.icon} className="w-4 h-4" />
-                  <span>{route.label}</span>
-                </NavLink>
-              ))}
-            </nav>
+                  <ApperIcon name="LogOut" className="w-4 h-4" />
+                  <span>Logout</span>
+                </Button>
+              </div>
+            </div>
 
             {/* Mobile menu button */}
             <button
@@ -85,9 +113,18 @@ const Layout = () => {
                     }
                   >
                     <ApperIcon name={route.icon} className="w-4 h-4" />
-                    <span>{route.label}</span>
+<span>{route.label}</span>
                   </NavLink>
                 ))}
+                
+                {/* Mobile Logout */}
+                <button
+                  onClick={handleLogout}
+                  className="flex items-center space-x-3 px-3 py-2 rounded-md text-sm font-medium text-surface-600 hover:text-primary hover:bg-surface-100 transition-colors duration-200 w-full"
+                >
+                  <ApperIcon name="LogOut" className="w-4 h-4" />
+                  <span>Logout</span>
+                </button>
               </div>
             </motion.div>
           )}
