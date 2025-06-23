@@ -28,18 +28,22 @@ const PropertyFilters = ({
 
   const activeFilterCount = getActiveFilterCount()
 
-  return (
-<div className="bg-white border-b border-surface-200 sticky top-0 z-30">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-        {/* Search and Controls */}
-        <div className="flex flex-col gap-4 mb-4">
-          {/* Search Bar */}
+return (
+    <>
+      {/* Sticky Search Bar Section */}
+      <div className="bg-white border-b border-surface-200 sticky top-0 z-40">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="w-full">
             <SearchBar onSearch={onSearch} initialValue={searchTerm} />
           </div>
-          
+        </div>
+      </div>
+
+      {/* Scrolling Filter Controls Section */}
+      <div className="bg-white border-b border-surface-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           {/* View Controls */}
-          <div className="flex items-center justify-between flex-wrap gap-3">
+          <div className="flex items-center justify-between flex-wrap gap-3 mb-4">
             <div className="flex items-center space-x-3">
               <Button
                 variant="outline"
@@ -62,48 +66,48 @@ const PropertyFilters = ({
             
             <ViewToggle currentView={currentView} onViewChange={onViewChange} />
           </div>
-        </div>
 
-        {/* Results Count and Active Filters */}
-        <div className="flex flex-wrap items-center justify-between gap-2">
-          <p className="text-sm text-surface-600">
-            {resultCount} {resultCount === 1 ? 'property' : 'properties'} found
-            {searchTerm && (
-              <span> for "{searchTerm}"</span>
+          {/* Results Count and Active Filters */}
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <p className="text-sm text-surface-600">
+              {resultCount} {resultCount === 1 ? 'property' : 'properties'} found
+              {searchTerm && (
+                <span> for "{searchTerm}"</span>
+              )}
+            </p>
+
+            {/* Active Filters Desktop */}
+            {activeFilterCount > 0 && (
+              <div className="hidden lg:flex items-center space-x-2">
+                <span className="text-sm text-surface-600">Filters:</span>
+                {(filters.priceMin > 0 || filters.priceMax < 2000000) && (
+                  <Badge variant="primary" size="sm">
+                    ${(filters.priceMin/1000).toFixed(0)}K - ${(filters.priceMax/1000).toFixed(0)}K
+                  </Badge>
+                )}
+                {filters.bedrooms > 0 && (
+                  <Badge variant="primary" size="sm">{filters.bedrooms}+ Beds</Badge>
+                )}
+                {filters.bathrooms > 0 && (
+                  <Badge variant="primary" size="sm">{filters.bathrooms}+ Baths</Badge>
+                )}
+                {filters.propertyTypes && filters.propertyTypes.map(type => (
+                  <Badge key={type} variant="primary" size="sm">{type}</Badge>
+                ))}
+              </div>
             )}
-          </p>
-
-          {/* Active Filters Desktop */}
-          {activeFilterCount > 0 && (
-            <div className="hidden lg:flex items-center space-x-2">
-              <span className="text-sm text-surface-600">Filters:</span>
-              {(filters.priceMin > 0 || filters.priceMax < 2000000) && (
-                <Badge variant="primary" size="sm">
-                  ${(filters.priceMin/1000).toFixed(0)}K - ${(filters.priceMax/1000).toFixed(0)}K
-                </Badge>
-              )}
-              {filters.bedrooms > 0 && (
-                <Badge variant="primary" size="sm">{filters.bedrooms}+ Beds</Badge>
-              )}
-              {filters.bathrooms > 0 && (
-                <Badge variant="primary" size="sm">{filters.bathrooms}+ Baths</Badge>
-              )}
-              {filters.propertyTypes && filters.propertyTypes.map(type => (
-                <Badge key={type} variant="primary" size="sm">{type}</Badge>
-              ))}
-            </div>
-          )}
+          </div>
         </div>
-      </div>
 
-      {/* Mobile Filter Panel */}
-      <FilterPanel
-        isOpen={isFilterPanelOpen}
-        onClose={() => setIsFilterPanelOpen(false)}
-        onFilterChange={onFilterChange}
-        currentFilters={filters}
-      />
-    </div>
+        {/* Mobile Filter Panel */}
+        <FilterPanel
+          isOpen={isFilterPanelOpen}
+          onClose={() => setIsFilterPanelOpen(false)}
+          onFilterChange={onFilterChange}
+          currentFilters={filters}
+        />
+      </div>
+    </>
   )
 }
 
